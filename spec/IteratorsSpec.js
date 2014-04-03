@@ -1,7 +1,8 @@
 describe("Iterators", function() {
-  it("works!", function() {
-    expect(true).toBe(true);
-  });
+  var arr = [1,2,3,4], action = jasmine.createSpy('action');
+  var multipleByTwo = function(ele) {
+    return ele * 2; 
+  };
   describe(".each", function() {
     describe("given a null", function() {
       it("returns null", function() {
@@ -9,7 +10,6 @@ describe("Iterators", function() {
       });
     });
     describe("given an array and an action as input", function() {
-      var arr = [1,2,3,4], action = jasmine.createSpy('action');
       it("returns the array", function() {
         expect(Iterators.each(arr,action)).toBe(arr);
       });
@@ -28,21 +28,20 @@ describe("Iterators", function() {
     });
     describe("given an array and an action as input", function() {
       it("returns a new array", function() {
-        pending();
+        expect(Iterators.map(arr, action)).not.toBe(arr);
       });
       it("returned array has results of the action applied to each element of the input array", function() {
         // For this one, imagine that you have an input array like
         // [1,2,3]. Think about how you'd expect the result of applying
         // a function like function (el) { return el * 2; } to be used
-        // to construct the result array.
-
+        // to construct the esult array.
+          expect(Iterators.map(arr, multipleByTwo)).toEqual([2,4,6,8]);
         // From that point, see if you could figure out how to abstract that out 
         // to the more general case, to check whether map applies *any* function
         // to each element to return the result array 
-        pending();
       });
       it("does not modify the original array at all", function() {
-        pending();
+        expect(Iterators.map(arr, multipleByTwo)).not.toBe(arr);
       });
     });
   });
